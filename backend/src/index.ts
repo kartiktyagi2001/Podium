@@ -1,7 +1,9 @@
 import { Hono } from 'hono'
-import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
+
 import {decode, sign, verify} from 'hono/jwt'
+
+import {userRouter} from './routes/userRouter'
+import {postRouter} from './routes/postRouter'
 
 const app = new Hono<{
   Bindings: {
@@ -10,99 +12,12 @@ const app = new Hono<{
   }
 }>()
 
-// const dbUrl = process.env.DATABASE_URL;
-// const secret = process.env.JWT_SECRET;
 
 
-//middleware
-app.use('/api/v1/blog/*', async (c, next)=>{
-  const header = c.req.header("authorization") || "";
-  const token = header.split(" ")[1]
 
-  const response = await verify(token, c.env.JWT_SECRET);
+//routes
+app.route('/api/v1/user', userRouter);
+app.route('/api/v1/post', postRouter);
 
-  if(response.id){
-    next()
-  } else{
-    c.status(403)
-    return c.json({error: "unauthorized"})
-  }
-})
-
-//signup
-app.post('/api/v1/signup', async (c) => {
-
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
-
-  const body = await c.req.json();
-
-  try{
-    const user = await prisma.user.create({
-      data:{
-        email: body.email,
-        name: body.name,
-        password: body.password
-      }
-    });
-
-    const token = await sign({id: user.id}, c.env.JWT_SECRET)
-    return c.json({
-      jwt: token
-    })    
-  } catch(err){
-    return c.status(403);
-  }
-
-  return c.text("Hello!")
-})
-
-//signin
-app.post('/api/v1/signin', async (c) => {
-
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
-
-  const body = await c.req.json();
-
-  try{
-    const user = await prisma.user.findUnique({
-      where:{
-        email: body.email,
-        password: body.password
-      }
-    });
-
-    if(!user){
-      c.status(403)
-      return c.json({error: "User not found"})
-    }
-
-    const jwt = await sign({id: user.id}, c.env.JWT_SECRET);
-    return c.json({jwt});
-
-  } catch(err){
-    return c.json({error: err});
-  }
-
-  return c.text("Hello!")
-})
-
-
-app.post('/api/v1/blog', (c) => {
-  return c.text("Hello!")
-})
-
-
-app.put('/api/v1/blog', (c) => {
-  return c.text("Hello!")
-})
-
-
-app.get('/api/v1/blog/:id', (c) => {
-  return c.text("Hello!")
-})
 
 export default app
