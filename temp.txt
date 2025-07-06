@@ -1,0 +1,13 @@
+prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMDFKWkRTNjlFQVNaWlk3TU1KMUtWNFo3NksiLCJ0ZW5hbnRfaWQiOiJjN2Q1MmEyMjhkZTQzODhjYWJjMTlmNjA2YjY0NGVhMTQ4OThiNDExMDAyOWQ4ZDBjNzQ4MzVmOGUyODdmNjEyIiwiaW50ZXJuYWxfc2VjcmV0IjoiYzFkYmFlMGEtOWU3Zi00MzEzLWI4MjAtYTcwMDE2MGYxMTM0In0.OG9JIbHzjzZ2g1fA8KMCcypv75YtXkhqaOnttcqBkW0
+
+npx prisma migrate dev --name init_schema
+
+workers environment -> npx wrangler secret put DATABASE_URL
+                    -> npx wrangler secret put JWT_SECRET
+
+
+Conection Pooling link-> const dbUrl = process.env.DATABASE_URL ;
+
+secret -> const jwtSecret = process.env.JWT_SECRET;
+
+we use j]
