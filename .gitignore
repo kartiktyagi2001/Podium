@@ -1,2 +1,0 @@
-# Ignore Wrangler config with secrets
-wrangler.jsonc
