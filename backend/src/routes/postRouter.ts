@@ -73,8 +73,31 @@ postRouter.put('/', auth, async (c) => {
         })
 
     } catch(err){
-        c.status(411);
+        c.status(406);
         return c.json({error: err});
+    }
+})
+
+// return all blogs
+// but we need to add pagination so that blogs get in chunks not all at once
+postRouter.get('/all', auth, async (c) => {
+
+    // initialize prisma
+    const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    try{
+        const blogs = await prisma.post.findMany();
+
+        return c.json({
+            message: "here are the blogs",
+            blogs
+        });
+
+    } catch(err){
+        c.status(411);
+        return c.json({error: err, message: "Error fetching blog"});
     }
 })
 
@@ -105,24 +128,3 @@ postRouter.get('/:id', auth, async (c) => {
     }
 })
 
-// return all blogs
-// but we need to add pagination so that blogs get in chunks not all at once
-postRouter.get('/all', auth, async (c) => {
-
-    // initialize prisma
-    const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate());
-
-    try{
-        const blogs = await prisma.post.findMany();
-
-        return c.json({
-            blogs
-        });
-
-    } catch(err){
-        c.status(411);
-        return c.json({error: err, message: "Error fetching blog"});
-    }
-})
