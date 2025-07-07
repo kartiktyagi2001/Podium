@@ -4,7 +4,7 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import {decode, sign} from 'hono/jwt'
 import {auth} from '../middlewares/auth'
 
-import {createValidation, updateValidation} from ''
+import {createValidation, updateValidation} from '@arcbit/podium-common'
 
 
 export const postRouter = new Hono<{
@@ -26,10 +26,9 @@ postRouter.post('/', auth, async (c) => {
     const {success} = createValidation.safeParse(body)
 
     if(!success){
-        c.status(411)
         return c.json({
             message: "Inputs not correct"
-        })
+        }, 411);
     }
 
     const user_id = c.get("user_id");   //fetched user_id from auth middleware 
@@ -67,10 +66,9 @@ postRouter.put('/', auth, async (c) => {
     const {success} = updateValidation.safeParse(body)
 
     if(!success){
-        c.status(411)
         return c.json({
             message: "Inputs not correct"
-        })
+        }, 411);
     }
 
     // initialize prisma
@@ -123,7 +121,7 @@ postRouter.get('/all', auth, async (c) => {
 })
 
 // get a apecific blog
-postRouter.get('/:id', auth, async (c) => {  
+postRouter.get('/get/:id', auth, async (c) => {  
 
     const id = await c.req.param("id");
 

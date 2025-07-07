@@ -12,3 +12,10 @@ secret -> const jwtSecret = process.env.JWT_SECRET;
 //this will allow access by fe
 export type signupValidation = z.infer<typeof signupValidation>
 export type signinValidation = z.infer<typeof signinValidation>
+
+npm publish zod validation folder common:
+-> change package.json name: "name": "@arcbit/podium-common"
+-> main: actual main file path
+-> version: "1.0" any version (required)
+-> run: npm login
+-> run: npm publish --access public/private

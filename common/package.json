@@ -1,4 +1,10 @@
 {
+  "name": "@arcbit/podium-common",
+  "main": "dist/schemaValidation",
+  "description": "zod validation package",
+  "version": "1.0.0",
+  "author": "Arcbit",
+  "license": "MIT",
   "dependencies": {
     "zod": "^3.25.75"
   }
