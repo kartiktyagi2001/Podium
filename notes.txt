@@ -1,0 +1,14 @@
+npx prisma migrate dev --name init_schema
+
+workers environment -> npx wrangler secret put DATABASE_URL
+                    -> npx wrangler secret put JWT_SECRET
+
+
+Conection Pooling link-> const dbUrl = process.env.DATABASE_URL ;
+
+secret -> const jwtSecret = process.env.JWT_SECRET;
+
+//type inference in zod 
+//this will allow access by fe
+export type signupValidation = z.infer<typeof signupValidation>
+export type signinValidation = z.infer<typeof signinValidation>

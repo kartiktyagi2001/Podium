@@ -2,9 +2,9 @@ import { Hono } from "hono"
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import {decode, sign} from 'hono/jwt'
-
 import {auth} from '../middlewares/auth'
-import { stringify } from "querystring"
+
+import {createValidation, updateValidation} from ''
 
 
 export const postRouter = new Hono<{
@@ -21,6 +21,17 @@ export const postRouter = new Hono<{
 postRouter.post('/', auth, async (c) => {
 
     const body = await c.req.json() as { title: string; description: string; author_id: string };
+
+    //schema validation
+    const {success} = createValidation.safeParse(body)
+
+    if(!success){
+        c.status(411)
+        return c.json({
+            message: "Inputs not correct"
+        })
+    }
+
     const user_id = c.get("user_id");   //fetched user_id from auth middleware 
 
     // initialize prisma
@@ -47,10 +58,20 @@ postRouter.post('/', auth, async (c) => {
     }
 })
 
-
+//update blog
 postRouter.put('/', auth, async (c) => {
 
     const body = await c.req.json() as { title: string; description: string; id: string };
+
+    //schema validation
+    const {success} = updateValidation.safeParse(body)
+
+    if(!success){
+        c.status(411)
+        return c.json({
+            message: "Inputs not correct"
+        })
+    }
 
     // initialize prisma
     const prisma = new PrismaClient({
