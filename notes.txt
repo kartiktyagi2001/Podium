@@ -19,3 +19,4 @@ npm publish zod validation folder common:
 -> version: "1.0" any version (required)
 -> run: npm login
 -> run: npm publish --access public/private
+-> install this "@arcbit/podium-common" and use. YAY!

@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
-
 import {decode, sign, verify} from 'hono/jwt'
+import {cors} from 'hono/cors'
 
 import {userRouter} from './routes/userRouter'
 import {postRouter} from './routes/postRouter'
@@ -13,7 +13,8 @@ const app = new Hono<{
 }>()
 
 
-
+//cors
+app.use('/*', cors())
 
 //routes
 app.route('/api/v1/user', userRouter);
