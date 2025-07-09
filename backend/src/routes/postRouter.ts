@@ -107,7 +107,19 @@ postRouter.get('/all', auth, async (c) => {
     }).$extends(withAccelerate());
 
     try{
-        const blogs = await prisma.post.findMany();
+        const blogs = await prisma.post.findMany({
+            select:{
+                id: true,
+                title: true,
+                description: true,
+                author_id: true,
+                author:{
+                    select:{
+                        name: true
+                    }
+                }
+            }
+        });
 
         return c.json({
             message: "here are the blogs",
@@ -134,6 +146,16 @@ postRouter.get('/get/:id', auth, async (c) => {
         const blog = await prisma.post.findFirst({
             where: {
             id
+            },
+            select:{
+                id: true,
+                title: true,
+                description: true,
+                author:{
+                    select:{
+                        name: true
+                    }
+                }
             }
         });
 

@@ -22,9 +22,9 @@ export const Auth = ({type}: {type: "signup"|"signin"})=>{
 
             //test log
             console.log(jwt)
-            alert(jwt)
 
             localStorage.setItem("token", jwt); //saved the jwt in browser so that it can be used to verify user auth via token validation
+            localStorage.setItem("username", response.data.name); //to access at navbar for profile picture
             
             navigate('/blogs');
 
