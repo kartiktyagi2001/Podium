@@ -54,6 +54,7 @@ export const Publish = () =>{
                             navigate(`/blog/${response.data.id}`);
                             } catch (err) {
                             alert("You must be logged in to publish a post.");
+                            navigate('/signin');
                             console.error("Post publishing failed:", err);
                             }
                         }}
