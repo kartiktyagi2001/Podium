@@ -15,7 +15,7 @@ export const Blogs = ()=>{
 
     if(load){
         return <div className="flex justify-center items-center w-screen h-screen bg-slate-100">
-            <div className="text-center text-lg text-slate-600 font-light">
+            <div className="text-center text-xl text-slate-700 font-light animate-pulse">
             Please wait...
             </div>
         </div>

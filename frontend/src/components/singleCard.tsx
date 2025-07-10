@@ -15,7 +15,7 @@ export const SingleBlog = ({ blog }: { blog: BlogPost }) => {
       <Navbar />
 
       <div className="flex justify-center">
-        <div className="grid grid-cols-12 px-10 pt-20 w-full max-w-screen-xl p-10">
+        <div className="grid grid-cols-12 px-10 pt-20 w-full  max-w-screen-xl p-10">
           <div className="col-span-8">
             <div className="text-4xl text-slate-950 font-bold">
               {blog.title}
@@ -28,7 +28,7 @@ export const SingleBlog = ({ blog }: { blog: BlogPost }) => {
             </div>
           </div>
 
-          <div className="col-span-4 p-4">
+          <div className="col-span-4 p-4 m-10">
             <div className="text-slate-900">
               Author
             </div>

@@ -18,6 +18,12 @@ export const Auth = ({type}: {type: "signup"|"signin"})=>{
     async function sendRequest() {
         try{
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type==="signup" ? 'signup' : 'signin'}`, postInputs);
+
+            //since be return a json err, we check it here or else it will be treated as sucess and err never catched in case of signin
+            if (response.data.error) {
+                alert(response.data.error);
+                return;
+            }
             const jwt = response.data.jwt; //be sends an object with token, check in network tab response
 
             //test log
@@ -29,7 +35,7 @@ export const Auth = ({type}: {type: "signup"|"signin"})=>{
             navigate('/blogs');
 
         } catch(err){
-            alert("try again !")
+            alert("Something went wrong, please try again!")
         }
     }
 
