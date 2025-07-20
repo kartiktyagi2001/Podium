@@ -117,7 +117,8 @@ postRouter.get('/all', auth, async (c) => {
                     select:{
                         name: true
                     }
-                }
+                },
+                created_at: true
             }
         });
 
@@ -155,7 +156,8 @@ postRouter.get('/get/:id', auth, async (c) => {
                     select:{
                         name: true
                     }
-                }
+                },
+                created_at: true
             }
         });
 

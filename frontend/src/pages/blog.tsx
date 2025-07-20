@@ -8,6 +8,7 @@ type BlogPost = {
     author: { name: string };
     title: string;
     description: string;
+    created_at: Date
 };
 
 export const Blog = ()=>{
@@ -25,7 +26,7 @@ export const Blog = ()=>{
 
     return (
 
-        <div className="bg-gradient-to-r h-screen w-screen from-purple-100 via-slate-100  to-pink-100">
+        <div className="bg-gradient-to-r h-full md:h-screen w-screen from-purple-100 via-slate-100 to-pink-100">
             <SingleBlog blog={post} />
         </div>
     )

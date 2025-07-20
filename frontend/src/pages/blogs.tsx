@@ -7,6 +7,7 @@ type BlogPost = {
     author: { name: string };
     title: string;
     description: string;
+    created_at: Date
 };
 
 export const Blogs = ()=>{
@@ -28,13 +29,16 @@ export const Blogs = ()=>{
         
             <div className="flex justify-center">
                 <div>
-                    {posts.map(item=><BlogCard
-                        id={item.id}
-                        author = {item.author.name}
-                        title = {item.title}
-                        description = {item.description}  
-                        publishedDate = {'12th January, 2024'}
-                    />)}
+                    {posts.map(item => (
+                        <BlogCard
+                            key={item.id}
+                            id={item.id}
+                            author={item.author.name}
+                            title={item.title}
+                            description={item.description}
+                            publishedDate={item.created_at}
+                        />
+                    ))}
                     
 
                 </div>

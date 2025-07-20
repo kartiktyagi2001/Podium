@@ -15,20 +15,20 @@ export const SingleBlog = ({ blog }: { blog: BlogPost }) => {
       <Navbar />
 
       <div className="flex justify-center">
-        <div className="grid grid-cols-12 px-10 pt-20 w-full  max-w-screen-xl p-10">
-          <div className="col-span-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 px-4 sm:px-6 md:px-10 pt-20 w-full max-w-screen-xl">
+          <div className="md:col-span-8 order-1">
             <div className="text-4xl text-slate-950 font-bold">
               {blog.title}
             </div>
             <div className="text-slate-500 font-light pt-2">
-              posted on 1/1/2021
+              posted on {blog.created_at.toString().slice(0, 10)}
             </div>
             <div className="mt-4 text-lg text-gray-800">
               {blog.description}
             </div>
           </div>
 
-          <div className="col-span-4 p-4 m-10">
+          <div className="md:col-span-4 p-4 order-2">
             <div className="text-slate-900">
               Author
             </div>

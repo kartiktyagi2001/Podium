@@ -32,6 +32,7 @@ export type BlogPost = {
     author: { name: string };
     title: string;
     description: string;
+    created_at: Date;
 };
 
 export const useBlog = ({id}: {id: string})=>{

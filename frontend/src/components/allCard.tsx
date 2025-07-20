@@ -5,7 +5,7 @@ interface BlogCardProps{
     author: string;
     title: string;
     description: string;
-    publishedDate: string;
+    publishedDate: Date;
     id: string;
 }
 
@@ -30,7 +30,7 @@ export const BlogCard = ({
                             {author}
                         </div>
                         <div className="pl-2 text-slate-500 text- flex justify-center font-thin">
-                            {publishedDate}
+                            {publishedDate.toString().slice(0, 10)}
                         </div>
                     </div>
                     <div className="font-semibold text-xl pt-2">
