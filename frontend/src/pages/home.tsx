@@ -60,7 +60,7 @@ export function Home() {
         </div>
 
         <footer className="relative text-center z-10 mt-auto px-4 py-3 text-sm bg-[#3a123d] text-[#ffffff]">
-            Made with 💜 by <a href="https://github.com/kartiktyagi2001"><b>Arcbit</b></a>
+            Made with 💜 by <a className="underline" href="https://github.com/kartiktyagi2001"><b>Arcbit</b></a>
         </footer>
             
 
