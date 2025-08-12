@@ -1,7 +1,7 @@
 import axios from "axios"
 import { Navbar } from "../components/navbar"
 import { BACKEND_URL } from "../config"
-import { useEffect, useState, type ChangeEvent } from "react"
+import { useEffect, useRef, useState, type ChangeEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { useBlogs } from "../hooks/hooks"
 
@@ -14,6 +14,19 @@ export const Publish = () =>{
     const [description, setDescription] = useState("")
     const [showCustom, setShowCustom] = useState(true);
     const {load} = useBlogs() as { load: boolean };
+
+    const hasAlerted = useRef(false)
+
+  //checking if user is authenticated or not then only we render publishing page
+  useEffect(()=>{
+    if(hasAlerted.current) return;
+    hasAlerted.current = true; //because user is alerted twice, thrice or sometimes 4 times (idk due to strictmode)
+
+    if(!localStorage.getItem("token")){
+      alert('Please signin to publish your Story!')
+      navigate('/signin')
+    }
+  });
 
   //show custom loader for 2 seconds
     useEffect(() => {
@@ -56,7 +69,7 @@ export const Publish = () =>{
                             alert("You must be logged in to publish a post.");
                             navigate('/signin');
                             console.error("Post publishing failed:", err);
-                            }
+                            } //try catch is not required here though coz i fixed page rendering without auth in useEffect above (before that it was required):)
                         }}
                         type="submit"
                         className="mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-950 focus:ring-4 focus:ring-purple-200">
