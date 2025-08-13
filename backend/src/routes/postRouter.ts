@@ -99,7 +99,7 @@ postRouter.put('/', auth, async (c) => {
 
 // return all blogs
 // but we need to add pagination so that blogs get in chunks not all at once
-postRouter.get('/all', auth, async (c) => {
+postRouter.get('/all', async (c) => {
 
     // initialize prisma
     const prisma = new PrismaClient({
@@ -134,7 +134,7 @@ postRouter.get('/all', auth, async (c) => {
 })
 
 // get a apecific blog
-postRouter.get('/get/:id', auth, async (c) => {  
+postRouter.get('/get/:id', async (c) => {  
 
     const id = await c.req.param("id");
 
