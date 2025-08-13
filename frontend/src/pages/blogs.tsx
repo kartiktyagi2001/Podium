@@ -24,8 +24,8 @@ export const Blogs = ()=>{
 
     return(
         <div>
-
-            <Navbar />
+            
+            {localStorage.getItem("token") ? <Navbar isLoggedIn = {true} /> : <Navbar />}
         
             <div className="flex justify-center">
                 <div>
@@ -39,7 +39,6 @@ export const Blogs = ()=>{
                             publishedDate={item.created_at}
                         />
                     ))}
-                    
 
                 </div>
             </div>

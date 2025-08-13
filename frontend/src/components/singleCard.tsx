@@ -12,7 +12,7 @@ export const SingleBlog = ({ blog }: { blog: BlogPost }) => {
 
   return (
     <div>
-      <Navbar />
+      {localStorage.getItem("token") ? <Navbar isLoggedIn = {true} /> : <Navbar />}
 
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 px-4 sm:px-6 md:px-10 pt-20 w-full max-w-screen-xl">
