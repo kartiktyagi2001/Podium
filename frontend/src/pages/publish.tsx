@@ -38,7 +38,7 @@ export const Publish = () => {
   return (
     <div className="bg-gradient-to-r h-screen w-screen from-purple-100 via-red-100  to-brown-100">
       <Toaster position="top-center" reverseOrder={false} />
-      <Navbar />
+      <Navbar isLoggedIn={true} />
 
       <div className="flex justify-center w-full mt-10">
         <div className="max-w-screen-lg w-full p-5">
