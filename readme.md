@@ -237,7 +237,7 @@ or
 
 ## Acknowledgements
 
-- Thanks to the contributors of the open-source libraries used in this project.
+- Special hanks to the maintainers and contributors of the open-source libraries used in this project.
   
 - Inspired by the work of others in the community.
 
@@ -252,5 +252,3 @@ or
 - Tailwind CSS : utility-first CSS framework
 
 - tsParticles : lightweight particles.js library
-
-- special thanks to all maintainers and contributors of the open-source libraries used in this project.
