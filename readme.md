@@ -6,7 +6,7 @@ A distraction-free space built to learn in public, write with focus, and read wi
 
 ## 🚀 Why I Built Podium?
 
-I built Podium because I wanted a personal space to log my journey in development and document my learnings, while also applying the skills I had been picking up. At the same time, I noticed that many publishing platforms are cluttered or distracting, so I set out to solve that by building a distraction-free, markdown-enabled writing interface with a clean reading experience. On the technical side, it gave me the chance to apply what I’d learned in practice — designing a scalable backend with Cloudflare Workers, Hono, and Prisma, along with secure authentication and role-based access.
+I built Podium because I wanted a personal space to log my journey in development and document my learnings, while also applying the skills I had been picking up. At the same time, I noticed that many publishing platforms are cluttered or distracting, so I set out to solve that by building a distraction-free, markdown-enabled writing interface with a clean reading experience. On the technical side, it gave me the chance to apply what I’d learned in practice - designing a scalable backend with Cloudflare Workers, Hono, and Prisma, along with secure authentication and role-based access.
 
 ---
 
