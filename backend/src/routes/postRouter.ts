@@ -10,7 +10,7 @@ import {createValidation, updateValidation} from '@arcbit/podium-common'
 export const postRouter = new Hono<{
   Bindings: {
     DATABASE_URL: string,
-    JWT_SECRET: string // i googled this because "c.env..." causes error
+    JWT_SECRET: string //i googled this because "c.env..." causes error
   },
   Variables: {
     user_id: string //again an error while accessing using c.get in create blog route
@@ -98,7 +98,7 @@ postRouter.put('/', auth, async (c) => {
 })
 
 // return all blogs
-// but we need to add pagination so that blogs get in chunks not all at once
+// but we need to add pagination so that blogs get in chunks not all at once, making init render faster
 postRouter.get('/all', async (c) => {
 
     // initialize prisma
@@ -107,7 +107,7 @@ postRouter.get('/all', async (c) => {
     }).$extends(withAccelerate());
 
     try{
-        const blogs = await prisma.post.findMany({
+        const fetchedBlogs = await prisma.post.findMany({
             select:{
                 id: true,
                 title: true,
@@ -121,6 +121,8 @@ postRouter.get('/all', async (c) => {
                 created_at: true
             }
         });
+
+        const blogs = fetchedBlogs.reverse(); //earlierblogs were in fcfs order, now they are in lifo, yay!
 
         return c.json({
             message: "here are the blogs",
