@@ -83,7 +83,7 @@ I built Podium because I wanted a personal space to log my journey in developmen
 
 ### Clone the repository
 
-- git clone https://github.com/your-username/podium.git
+- git clone https://github.com/kartiktyagi2001/podium.git
 - cd podium
 
 ### Install dependencies
