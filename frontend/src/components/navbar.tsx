@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ProfilePhoto } from "./allCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NavProps {
   landingPage?: boolean;
@@ -14,6 +14,35 @@ export const Navbar = ({
   aboutPage = false
 }: NavProps) => {
   const [username, setUsername] = useState("");
+  const [dropdown, setDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    setDropdown((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (!dropdown) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdown]);
 
   useEffect(() => {
     const stored = localStorage.getItem("username");
@@ -53,7 +82,21 @@ export const Navbar = ({
             Write
           </button>
         </Link>
-        {isLoggedIn && <ProfilePhoto size="big" name={username} />}
+        {isLoggedIn && (
+          <div className="relative inline-block" ref={dropdownRef}>
+            <ProfilePhoto className="cursor-pointer" size="big" name={username} onClick={handleProfileClick} />
+            {dropdown && (
+              <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow-lg z-50">
+                <button
+                  className="block w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </>
     );
   }
