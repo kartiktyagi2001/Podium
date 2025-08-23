@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import type { MouseEventHandler } from "react";
 
 
 interface BlogCardProps{
@@ -48,12 +49,23 @@ export const BlogCard = ({
     )
 }
 
-export function ProfilePhoto({name, size = "small"}: {name: string, size: "small" | "big"}){
-    
-    return(
-        <div className={`relative inline-flex items-center justify-center ${size==="small" ? "h-6 w-6" : "h-8 w-8"} overflow-hidden bg-gray-200 rounded-full`}>
-            <span className={`${size==="small" ? "text-sm" : "text-md"} text-orange-500`}>{name[0]}</span>
+export function ProfilePhoto({
+    name,
+    size = "small",
+    onClick,
+    className
+}: {
+    name: string;
+    size: "small" | "big";
+    onClick?: MouseEventHandler<HTMLDivElement>;
+    className?: string;
+}) {
+    return (
+        <div
+            className={`relative inline-flex items-center justify-center ${size === "small" ? "h-6 w-6" : "h-8 w-8"} overflow-hidden bg-gray-200 rounded-full ${className}`}
+            onClick={onClick}
+        >
+            <span className={`${size === "small" ? "text-sm" : "text-md"} text-orange-500`}>{name[0]}</span>
         </div>
-    )
-
+    );
 }
