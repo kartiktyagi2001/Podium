@@ -1,6 +1,7 @@
 import type { BlogPost } from "../hooks/hooks";
 import { ProfilePhoto } from "./allCard";
 import { Navbar } from "./navbar";
+import MDEditor from "@uiw/react-md-editor";
 
 
 
@@ -23,8 +24,17 @@ export const SingleBlog = ({ blog }: { blog: BlogPost }) => {
             <div className="text-slate-500 font-light pt-2">
               posted on {blog.created_at.toString().slice(0, 10)}
             </div>
-            <div className="mt-4 text-lg text-gray-800">
-              {blog.description}
+            <div className="mt-4 text-gray-800">
+              <MDEditor.Markdown 
+                source={blog.description} 
+                style={{ 
+                  whiteSpace: 'pre-wrap', 
+                  background: 'transparent',
+                  color: 'rgb(31 41 55)',
+                  fontSize: '1.125rem'
+                }}
+                data-color-mode="light"
+              />
             </div>
           </div>
 
