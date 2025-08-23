@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Navbar } from "../components/navbar";
 import { BACKEND_URL } from "../config";
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import MDEditor from "@uiw/react-md-editor";
 import { useNavigate } from "react-router-dom";
 import { useBlogs } from "../hooks/hooks";
 import toast, { Toaster } from "react-hot-toast";
@@ -9,7 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 export const Publish = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState<string>("");
   const [showCustom, setShowCustom] = useState(true);
   const { load } = useBlogs() as { load: boolean };
 
@@ -51,9 +52,8 @@ export const Publish = () => {
             placeholder="Title"
           ></input>
           <TextEditor
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
+            value={description}
+            onChange={setDescription}
           />
 
           <div className="flex justify-end">
@@ -93,25 +93,25 @@ export const Publish = () => {
   );
 };
 
-function TextEditor({
-  onChange,
-}: {
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-}) {
+type TextEditorProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+function TextEditor({ value, onChange }: TextEditorProps) {
   return (
     <div className="mt-2">
       <div className="w-full mb-4">
-        <div className="flex items-center border border-slate-300 rounded-lg bg-slate-50 justify-between">
-          <div className="mt-2 rounded-b-lg w-full">
-            <textarea
-              onChange={onChange}
-              rows={10}
-              className="focus:outline-none block w-full px-2 text-sm text-gray-800 bg-slate-50 border-0 pl-2"
-              placeholder="Write an article..."
-              required
-            />
-          </div>
-        </div>
+        <MDEditor
+          value={value}
+          onChange={(val) => onChange(val ?? "")}
+          height={300}
+          textareaProps={{
+            placeholder: "Write an blog... (Markdown supported)",
+            required: true,
+          }}
+          data-color-mode="light"
+        />
       </div>
     </div>
   );
