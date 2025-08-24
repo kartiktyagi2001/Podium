@@ -28,6 +28,10 @@ export const Navbar = ({
     navigate("/");
   };
 
+  const handleViewProfile = () =>{
+    navigate("/profile")
+  }
+
   useEffect(() => {
     if (!dropdown) return;
     function handleClickOutside(event: MouseEvent) {
@@ -92,6 +96,13 @@ export const Navbar = ({
                   onClick={handleLogout}
                 >
                   Log Out
+                </button>
+
+                <button
+                  className="block w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100 cursor-pointer"
+                  onClick={handleViewProfile}
+                >
+                  View Profile
                 </button>
               </div>
             )}
