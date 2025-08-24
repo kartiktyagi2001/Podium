@@ -1,7 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  
-  // output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -9,20 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id String @id @default(uuid())
-  email String @unique
-  name String
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  name     String
   password String
-  posts Post[]
+  bio      String? @default("Reading and Writing my mind out!")
+  posts    Post[]
 }
 
-model Post{
-  id String @id @default(uuid())
-  title String
+model Post {
+  id          String   @id @default(uuid())
+  title       String
   description String
-  published Boolean @default(false)
-  author User @relation(fields: [author_id], references: [id])
-  author_id String
-  created_at DateTime @default(now())
+  published   Boolean  @default(false)
+  author_id   String
+  created_at  DateTime @default(now())
+  author      User     @relation(fields: [author_id], references: [id])
 }

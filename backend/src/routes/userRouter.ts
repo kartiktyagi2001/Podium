@@ -95,3 +95,36 @@ userRouter.post('/signin', async (c) => {
 //   return c.text("Hello!")
 })
 
+//profile
+userRouter.get('/profile', async (c) => {
+
+  // const id = c.req.param("id");
+
+  const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    
+    const token = c.req.header('Authorization')?.split(' ')[1]; //removes bearer
+    if (!token) {
+        return c.json({ error: 'Unauthorized' });
+    }
+
+    try {
+        const payload = await verify(token, c.env.JWT_SECRET) as { id: string }; //it verifies token and tells that it has id which is a string
+        const userProfileData = await prisma.user.findUnique({
+            where: { id: payload.id },
+            include: { posts: true } //since prisma doesnot include relation w other tables by default, initially i was thinking that i make another db query to find posts using author id
+        });
+        if (!userProfileData) {
+            return c.json({ error: 'User not found' });
+        }
+        return c.json({
+          email: userProfileData.email,
+          name: userProfileData.name,
+          bio: userProfileData.bio,
+          posts: userProfileData.posts.reverse()//reverse to send in lifo manner
+        });
+    } catch (err) {
+        return c.json({ error: 'Invalid token' });
+    }
+});
