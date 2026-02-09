@@ -20,5 +20,6 @@ app.use('/*', cors())
 app.route('/api/v1/user', userRouter);
 app.route('/api/v1/post', postRouter);
 
+app.get('/api/v1/health', (c) => c.text('API is running'));
 
 export default app
